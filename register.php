@@ -27,7 +27,7 @@ if (isset($_POST['register'])) {
         <?php
         }
     } else {
-        $query = mysqli_query($conn, "INSERT INTO `user` (`username`, `password`) VALUES ('$username', '$passwordenc')");
+        $query = mysqli_query($conn, "INSERT INTO `user` (`username`, `password`) VALUES ('$username', '$password')");
         if ($query) {
         ?>
             <script>
@@ -47,22 +47,47 @@ if (isset($_POST['register'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SPBD - Register</title>
+    <link rel="stylesheet" href="assets/css/app.css">
+    <link rel="stylesheet" href="assets/css/auth.css">
 </head>
 
 <body>
-    <h1>Register</h1>
-    <?php if ($error) {
-    ?>
-        <h1>Username telah digunakan, mohon gunakan username lain</h1>
-    <?php
-    } ?>
-    <form action="<?= $_SERVER['PHP_SELF']; ?>" method="post">
-        <input type="text" name="username" id="username">
-        <input type="password" name="password" id="password">
-        <button type="submit" name="register">Submit</button>
-    </form>
+    <div id="auth">
+        <div class="row h-100">
+            <div class="col-lg-6 d-none d-lg-block">
+                <div id="auth-right" class="vh-100 overflow-hidden d-flex justify-content-center">
+                    <img src="assets/images/halaman_register.jpeg" style="width: 100%; height: auto">
+                </div>
+            </div>
+            <div class="col-lg-6 col-12 d-flex align-items-center justify-content-center">
+                <div id="auth-left">
+                    <h1 class="auth-title">Register</h1>
+                    <p>Sistem Pelatihan Beladiri Disabilitas</p>
+                    <form action="<?php $_SERVER['PHP_SELF'] ?>" method="POST">
+                        <div class="form-group position-relative">
+                            <input type="text" class="form-control form-control-xl" placeholder="Username" name="username">
+                        </div>
+                        <div class="form-group position-relative">
+                            <input type="password" class="form-control form-control-xl" placeholder="Password" name="password">
+                        </div>
+                        <div class="tampilanError">
+                            <?php if (isset($_POST['register'])) {
+                                if ($error == true) {
+                            ?>
+                                    <p class="text-danger">Username telah digunakan, mohon gunakan username lain!</p>
+                            <?php
+                                }
+                            }
+                            ?>
+                        </div>
+                        <button class="btn btn-primary btn-block btn-lg shadow-lg mt-3" name="register">Register</button>
+                    </form>
+                    Sudah memiliki akun? <a href="login.php">Login</a>
+                </div>
+            </div>
 
-    Sudah memiliki akun? <a href="login.php">Login</a>
+        </div>
+    </div>
 </body>
 
 </html>
